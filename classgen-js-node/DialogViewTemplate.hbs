@@ -1,0 +1,27 @@
+package game.view.dialog
+{
+    import game.model.client.dialog.{{className}}DialogData;
+    import game.model.client.dialog.base.BaseDialogData;
+    import game.ui.dialog.{{className}}DialogUI;
+    
+    public class {{className}}DialogView extends BaseDialogView
+    {
+        private var _dialogData:{{className}}DialogData;
+        
+        public function {{className}}DialogView()
+        {
+            
+        }
+        
+        override protected function handleShowDialog(data:BaseDialogData):void
+        {
+            _dialogData = data as {{className}}DialogData;
+            super.handleShowDialog(data);
+        }
+        
+        override protected function handleMessage(type:String, params:* = null):Boolean
+        {
+            return super.handleMessage(type, params);
+        }
+    }
+}

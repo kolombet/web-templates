@@ -1,0 +1,30 @@
+package game.ui.dialog
+{
+    import engine.loader.IClassContainer;
+    import game.model.client.dialog.{{className}}DialogData;
+    import game.ui.dialog.base.DynamicDialogUI;
+    import com.plarium.components.manager.GUIManager;
+    
+    public class {{className}}DialogUI extends DynamicDialogUI
+    {
+		private var _dialogData:{{className}}DialogData;
+        public function {{className}}DialogUI()
+        {
+            super(0)
+        }
+        
+        override public function initialize(classContainer:IClassContainer):void
+        {
+            super.initialize(classContainer);
+            _dialogData = _data as {{className}}DialogData;
+            _manager = new GUIManager(_content);
+            
+            this.height = _content.height;
+        }
+        
+        override public function finalize():void
+        {
+            super.finalize();
+        }
+    }
+}

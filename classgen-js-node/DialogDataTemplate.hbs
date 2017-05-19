@@ -1,0 +1,17 @@
+package game.model.client.dialog
+{
+    import game.model.client.ViewType;
+    import game.model.client.dialog.base.BaseDialogData;
+    import game.model.client.dialog.base.DialogType;
+    
+    public class {{className}}DialogData extends BaseDialogData
+    {
+        public function {{className}}DialogData()
+        {
+            viewType = ViewType.{{classNameUpper}};
+            dialogType = DialogType.BASIC;
+            title = "{{className}}";
+            super ();
+        }
+    }
+}
