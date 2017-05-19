@@ -1,0 +1,37 @@
+{
+  "name": "express-sample",
+  "version": "1.0.0",
+  "description": "A simple Node.js environment to build a server with express",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "start": "node ./out/index",
+    "serve": "nodemon ./out/index localhost 3000",
+    "test": "mocha --opts mocha.opts",
+    "test:auto": "mocha --opts mocha.opts --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dalfons0/express-sample.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dalfons0/express-sample/issues"
+  },
+  "homepage": "https://github.com/Dalfons0/express-sample#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "log": "^1.4.0",
+    "websocket": "^1.0.24"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.5.1",
+    "@types/express": "^4.0.35",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^7.0.18",
+    "@types/websocket": "0.0.33",
+    "chai": "^3.5.0"
+  }
+}
