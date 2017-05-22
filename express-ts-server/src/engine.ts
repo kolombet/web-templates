@@ -1,16 +1,23 @@
+import Store from './store';
+import PlayerController from './player-controller'
+import PlayerActions from './player-actions'
+
 class Engine {
-  currentTime:number = 0;
-  delta:number = 1000;
-  tickTime:number = 0;
-  miner:Miner;
-  money:number = 0;
-  onChange:Function;
+  store:Store;
+  playerController:PlayerController;
+  playerActions:PlayerActions;
+  currentTime: number = 0;
+  delta: number = 1000;
+  tickTime: number = 0;
 
   constructor() {
-      this.miner = new Miner();
-      if (this.currentTime == 0)
-        this.currentTime = Date.now();
-      setInterval(this.update.bind(this), 1000/60);//enterframe
+    this.store = new Store();
+    this.playerController = new PlayerController(this);
+    this.playerActions = new PlayerActions(this);
+    
+    if (this.currentTime == 0)
+      this.currentTime = Date.now();
+    setInterval(this.update.bind(this), 1000 / 60);
   }
 
   update() {
@@ -23,29 +30,8 @@ class Engine {
   }
 
   tick() {
-    this.money += this.miner.moneyPerTick;
-    if (this.onChange != null)
-      this.onChange();
-  }
-
-  upgradeMiner() {
-    if (this.money > this.miner.price) {
-      this.money -= this.miner.price;
-      this.miner.levelup();
-    }
-  }  
-}
-
-class Miner {
-  //1 секунда - один ресурс (1 тик = 1/5 ресурса)
-  moneyPerTick = .2/10;
-  price = 100;
-
-  levelup() {
-    this.moneyPerTick *= 1.1;
-    this.price *= 1.1;
+    this.playerController.update();
   }
 }
-//диггер копает со скоростью т единиц за тик
-//каждый апгрэйд повышает скорость на 10% и стоит на 10% дороже
+
 export default Engine

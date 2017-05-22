@@ -24,6 +24,7 @@
   "dependencies": {
     "express": "^4.15.2",
     "log": "^1.4.0",
+    "typescript-collections": "^1.2.3",
     "websocket": "^1.0.24"
   },
   "devDependencies": {

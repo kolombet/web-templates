@@ -17,49 +17,70 @@
   </style>
   </head>
   <body>
-    <div id="content"></div>
+    <!--<div id="content"></div>
     <div>
       <span id="status">Connecting...</span>
       <input type="text" id="input" disabled="disabled" />
-    </div>
+    </div>-->
+    <button id="changeCoords">Coords</button>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
     </script>
     <script>
 	$(function () {
   "use strict";
   // for better performance - to avoid searching in DOM
-  var content = $('#content');
-  var input = $('#input');
-  var status = $('#status');
-  // my color assigned by the server
-  var myColor = false;
-  // my name sent to the server
-  var myName = false;
-  // if user is running mozilla then use it's built-in WebSocket
-  window.WebSocket = window.WebSocket || window.MozWebSocket;
-  // if browser doesn't support WebSocket, just show
-  // some notification and exit
-  if (!window.WebSocket) {
-    content.html($('<p>',
-      { text:'Sorry, but your browser doesn\'t support WebSocket.'}
-    ));
-    input.hide();
-    $('span').hide();
-    return;
-  }
+  // var content = $('#content');
+  // var input = $('#input');
+  // var status = $('#status');
+  // // my color assigned by the server
+  // var myColor = false;
+  // // my name sent to the server
+  // var myName = false;
+  // // if user is running mozilla then use it's built-in WebSocket
+  // window.WebSocket = window.WebSocket || window.MozWebSocket;
+  // // if browser doesn't support WebSocket, just show
+  // // some notification and exit
+  // if (!window.WebSocket) {
+  //   content.html($('<p>',
+  //     { text:'Sorry, but your browser doesn\'t support WebSocket.'}
+  //   ));
+  //   input.hide();
+  //   $('span').hide();
+  //   return;
+  // }
   // open connection
+  var button = document.getElementById('changeCoords');
+  button.addEventListener("click", (e) => {
+    var data = {
+      type:'crdset',
+      data: {
+        x:10,
+        y:10
+      }
+    };
+    connection.send(JSON.stringify(data));
+  });
+  
   var connection = new WebSocket('ws://127.0.0.1:1337');
+  
   connection.onopen = function () {
+    var data = {
+      type:'auth', 
+      data: {
+        id:1337
+      }
+    };
+    connection.send(JSON.stringify(data));
     // first we want users to enter their names
-    input.removeAttr('disabled');
-    status.text('Choose name:');
+    // input.removeAttr('disabled');
+    // status.text('Choose name:');
   };
   connection.onerror = function (error) {
     // just in there were some problems with connection...
-    content.html($('<p>', {
-      text: 'Sorry, but there\'s some problem with your '
-         + 'connection or the server is down.'
-    }));
+    // content.html($('<p>', {
+    //   text: 'Sorry, but there\'s some problem with your '
+    //      + 'connection or the server is down.'
+    // }));
   };
   // most important part - incoming messages
   connection.onmessage = function (message) {
@@ -68,9 +89,10 @@
     // we should make sure that the massage is not chunked or
     // otherwise damaged.
     try {
-      // var json = JSON.parse(message.data);
-      var money = message.data;
-      console.log(money);
+      var json = JSON.parse(message.data);
+      console.log("message " + message);
+      // var money = message.data;
+      // console.log(money);
     } catch (e) {
       console.log('Invalid JSON: ', message.data);
       return;
